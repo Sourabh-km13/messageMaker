@@ -63,7 +63,9 @@ export default function Home() {
     lines.push(
       `Hi, this is ${form.name || "[Your Name]"}, a ${roleLabel} with 2.5 years of experience in B2C travel company.`
     );
-    lines.push("I specialize in JavaScript, React, Redux, with strong DSA.");
+    const skillSet = form.role==="FS"? 'Javascript, React, Node':'Javascript, React, Redux';
+    
+    lines.push(`I specialize in ${skillSet}`);
 
     if (form.referral && !form.interview) {
       lines.push(
