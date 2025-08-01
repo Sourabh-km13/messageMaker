@@ -4,9 +4,9 @@ export default function Home() {
   const [form, setForm] = useState({
     name: "Gourav",
     role: "FE",
-    company: "!!Fill This",
+    company: "",
     resume: "https://tinyurl.com/gm-FE-25",
-    job: "https://tinyurl.com/5n6u4pn9",
+    job: "",
     referral: true,
     interview: false
   });
@@ -25,12 +25,27 @@ export default function Home() {
   }, [form.role]);
 
   const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
+    const { name, value, } = e.target;
     setForm((prev) => ({
       ...prev,
-      [name]: type === "checkbox" ? checked : value
+      [name]: value
     }));
   };
+  const handleCheck= (e)=>{
+    const {name, checked} = e.target;
+    if(name === "referral"){
+      setForm((prev)=>({
+      ...prev ,referral:checked,interview:!checked 
+      }))
+    
+    }
+    else{
+      setForm((prev)=>({
+        ...prev,interview:checked,referral:!checked
+      }))
+    }
+    
+  }
 
   const isValidUrl = (url) => {
     try {
@@ -58,11 +73,7 @@ export default function Home() {
       lines.push(
         `I found an opening at ${form.company || "[Company]"}. Would you be able to schedule an interview?`
       );
-    } else if (form.interview && form.referral) {
-      lines.push(
-        `I found an opening at ${form.company || "[Company]"}. Would you be able to refer me or schedule an interview?`
-      );
-    }
+    } 
 
     if (form.job && isValidUrl(form.job)) lines.push(`Job: ${form.job}`);
     if (form.resume && isValidUrl(form.resume)) lines.push(`Resume: ${form.resume}`);
@@ -72,10 +83,19 @@ export default function Home() {
 
   const handleCopy = () => {
     const text = generateMessage();
-    navigator.clipboard.writeText(text).then(() => {
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    });
+    if(form.company.length===0||form.job.length===0 || form.resume.length===0){
+      alert('Fill the details correctly')
+    }
+    else if(!isValidUrl(form.job) || !isValidUrl(form.resume)){
+      alert('Invalid urls')
+    }
+    else{
+      navigator.clipboard.writeText(text).then(() => {
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+      });
+
+    }
   };
 
   return (
@@ -136,7 +156,7 @@ export default function Home() {
               type="checkbox"
               name="referral"
               checked={form.referral}
-              onChange={handleChange}
+              onChange={handleCheck}
             />
             Referral
           </label>
@@ -145,13 +165,13 @@ export default function Home() {
               type="checkbox"
               name="interview"
               checked={form.interview}
-              onChange={handleChange}
+              onChange={handleCheck}
             />
             Interview
           </label>
         </div>
 
-        <div className="border p-3 rounded bg-gray-50 text-sm">
+        <div className="border p-3 rounded bg-gray-50 text-lg ">
           <strong>Generated Message:</strong>
           <p ref={messageRef} className="mt-2 whitespace-pre-wrap">{generateMessage()}</p>
         </div>
