@@ -5,7 +5,7 @@ export default function Home() {
     name: "Gourav",
     role: "FE",
     company: "",
-    resume: "https://tinyurl.com/gm-FE-25",
+    resume: "https://tinyurl.com/gm-sde-fe",
     job: "",
     referral: true,
     interview: false
