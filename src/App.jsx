@@ -61,7 +61,7 @@ export default function Home() {
     const roleLabel = form.role === "FS" ? "Full Stack Engineer" : "Frontend Engineer";
 
     lines.push(
-      `Hi, this is ${form.name || "[Your Name]"}, a ${roleLabel} with 2.5 years of experience in B2C travel company.`
+      `Hi, this is ${form.name || "[Your Name]"}, a ${roleLabel} with 3 years of experience in B2C travel company.`
     );
     const skillSet = form.role==="FS"? 'Javascript, React, Node':'Javascript, React, Redux';
     
